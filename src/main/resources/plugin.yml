@@ -1,0 +1,15 @@
+name: OnlyWithdraw
+main: me.cable.onlywithdraw.OnlyWithdraw
+
+version: 1.0.0
+api-version: 1.16
+
+author: Cable
+
+softdepend:
+  - Vault
+
+commands:
+  onlywithdraw:
+    aliases: ow
+    permission: onlywithdraw.command.onlywithdraw

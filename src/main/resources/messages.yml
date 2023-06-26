@@ -1,0 +1,50 @@
+# ---------------------------------------------------------------------------------------------------- #
+#
+#     OnlyWithdraw messages.yml
+#
+# ----------( Information )---------- #
+#
+#   > A list of sounds can be found here:
+#     https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
+#
+# ---------------------------------------------------------------------------------------------------- #
+
+command:
+  onlywithdraw:
+    help: # %command%
+      - "[message] /%command% Shows information about this plugin"
+      - "[message] /%command% help Shows this help page"
+      - "[message] /%command% reload Reloads this plugin"
+    plugin-information: # %command% %name% %version%
+      - "[message] Server running %name% v%version%"
+      - "[message] Commands: /%command% help"
+    reload: # %millis%
+      - "[message] Configuration reloaded in %millis% ms."
+    unknown-command: # %command%
+      - "[message] Unknown sub-command. Type \"/%command% help\" for a list of commands."
+  withdraw:
+    help: # %command%
+      - "[message] /%command% <value | all> <amount>"
+    help-admin: # %command%
+      - "[message] /%command% <value | all> <amount>"
+      - "[message] /%command% <value> <amount> <player | all> [owner]"
+    # Runs when a player receives withdrawn items from an admin.
+    get: # %amount% %player% %total% %value%
+      - "[message] Received %amount% withdraw items from %player%, each worth %value%."
+    # Runs when an admin gives withdraw items to a player.
+    give: # %amount% %target% %total% %value%
+      - "[message] Gave %target% %amount% withdraw items each worth %value% for a total of %total%."
+
+error:
+  above-max: # %max%
+    - "[message] The provided amount is above the maximum!"
+  insufficient-balance: # %balance% %difference% %target%
+    - "[message] You have %balance% and need %difference% more to withdraw %target%!"
+  invalid-player: # %provided%
+    - "[message] The target player could not be found!"
+  no-permission:
+    - "[message] You don't have permission to use this command!"
+  only-player:
+    - "[message] Only players may use this command!"
+  under-min: # %min%
+    - "[message] The provided amount is under the minimum!"

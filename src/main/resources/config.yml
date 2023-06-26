@@ -1,0 +1,135 @@
+# ---------------------------------------------------------------------------------------------------- #
+#
+#     OnlyWithdraw config.yml
+#
+# ----------( Information )---------- #
+#
+#   > A list of sounds can be found here:
+#     https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
+#
+# ---------------------------------------------------------------------------------------------------- #
+
+# Prevent crafting when withdraw items are used in the recipe.
+cancel-crafting: true
+
+# Prevent villager trading involving withdraw items.
+cancel-villager-trading: true
+
+# Put player experience into item and drop on death.
+experience-on-death:
+  enabled: false
+  # The currency to use for the dropped withdraw item.
+  currency-id: "experience"
+  # If true, the amount of experience dropped on death will be the normal amount.
+  # Otherwise, the full amount of the player's experience will be dropped.
+  full-amount: true
+  # Minimum amount of experience points required for an experience withdraw item to be dropped.
+  min: 1
+
+# -------------------------------------------( Currencies )------------------------------------------- #
+
+# NOTE: Removing this section will not affect the plugin.
+currency-example:
+  # Set to false to prevent this currency from being withdrawn and redeemed.
+  enabled: true
+
+  command:
+    # Label for command used to withdraw this currency.
+    label: "withdrawcurrency"
+    # Permission required to withdraw this currency.
+    permission: "onlywithdraw.command.withdrawcurrency"
+    # Permission required to use this currency's admin command.
+    admin-permission: "onlywithdraw.command.withdrawcurrency.admin"
+
+  # Minimum amount that can be withdrawn to an item.
+  min: 1
+  # Maximum amount that can be withdrawn to an item (-1 for unlimited).
+  max: -1
+
+  items: # %value%
+    # Used when the withdraw item was created by a player through withdrawing.
+    owner: # %owner%
+      material: PAPER
+      name: "&a&lPaper-Note &7(Right-Click)"
+      lore:
+        - "&dValue: &f%value%"
+        - "&dSigner: &f%owner%"
+    # Used when the withdraw item was created by the server.
+    no-owner:
+      material: PAPER
+      name: "&a&lPaper-Note &7(Throw)"
+      lore:
+        - "&dValue: &f%value%"
+        - "&dSigner: &fServer"
+
+  events:
+    # Runs when a player redeems a withdraw item.
+    # Placeholders: %amount% %total% %value%
+    redeem:
+      - "[message] +%total% currency"
+    # Runs when a withdraws a currency into a withdraw item.
+    # Placeholders: %amount% %total% %value%
+    withdraw:
+      - "[message] -%total% currency"
+
+currencies:
+  experience:
+    enabled: true
+
+    command:
+      label: "xpbottle"
+      permission: "onlywithdraw.command.xpbottle"
+      admin-permission: "onlywithdraw.command.xpbottle.admin"
+
+    min: 1
+    max: -1
+
+    items:
+      owner:
+        material: EXPERIENCE_BOTTLE
+        name: "&a&lExperience Bottle &7(Throw)"
+        lore:
+          - "&dValue: &f%value% XP"
+          - "&dEnchanter: &f%owner%"
+      no-owner:
+        material: EXPERIENCE_BOTTLE
+        name: "&a&lExperience Bottle &7(Throw)"
+        lore:
+          - "&dValue: &f%value% XP"
+          - "&dEnchanter: &fServer"
+
+    events:
+      redeem:
+        - "[message] +%total% experience"
+      withdraw:
+        - "[message] -%total% experience"
+  money:
+    enabled: true
+
+    command:
+      label: "withdraw"
+      permission: "onlywithdraw.command.withdraw"
+      admin-permission: "onlywithdraw.command.withdraw.admin"
+
+    min: 1
+    max: -1
+
+    items:
+      owner:
+        material: PAPER
+        name: "&a&lCash-Note &7(Right-Click)"
+        lore:
+          - "&dValue: &f%value%"
+          - "&dSigner: &f%owner%"
+      no-owner:
+        material: PAPER
+        name: "&a&lCash-Note &7(Throw)"
+        lore:
+          - "&dValue: &f%value%"
+          - "&dSigner: &fServer"
+
+    events:
+      redeem:
+        - "[message] +%total% money"
+      withdraw:
+        - "[message] -%total% money"
