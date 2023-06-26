@@ -103,7 +103,7 @@ currencies:
         - "[message] +%total% experience"
       withdraw:
         - "[message] -%total% experience"
-  money:
+  money: # uses Vault's economy
     enabled: true
 
     command:

@@ -1,6 +1,7 @@
 package me.cable.onlywithdraw.command;
 
 import me.cable.onlycore.command.CustomCommand;
+import me.cable.onlycore.util.CUtils;
 import me.cable.onlywithdraw.OnlyWithdraw;
 import me.cable.onlywithdraw.api.CurrencyManager;
 import me.cable.onlywithdraw.handler.Messages;
@@ -44,24 +45,30 @@ public class MainCommand extends CustomCommand<OnlyWithdraw> {
         }
 
         switch (args[0]) {
-            case "help" -> messages.command(path, "help")
-                    .placeholder("command", label)
-                    .run(sender);
-            case "reload" -> {
+            case "help": {
+                messages.command(path, "help")
+                        .placeholder("command", label)
+                        .run(sender);
+                break;
+            }
+            case "reload": {
                 long millis = System.currentTimeMillis();
-                Player player = (sender instanceof Player a) ? a : null;
+                Player player = (sender instanceof Player) ? (Player) sender : null;
 
                 messages.load(player);
                 settings.load(player);
                 CurrencyManager.reloadCurrencies();
 
                 messages.command(path, "reload")
-                        .placeholder("{millis}", Long.toString(System.currentTimeMillis() - millis))
+                        .placeholder("millis", Long.toString(System.currentTimeMillis() - millis))
+                        .run(sender);
+                break;
+            }
+            default: {
+                messages.command(path, "unknown-command")
+                        .placeholder("command", label)
                         .run(sender);
             }
-            default -> messages.command(path, "unknown-command")
-                    .placeholder("command", label)
-                    .run(sender);
         }
 
         return true;
@@ -73,7 +80,7 @@ public class MainCommand extends CustomCommand<OnlyWithdraw> {
         final int length = args.length;
 
         if (length == 1) {
-            for (String a : List.of("help", "reload")) {
+            for (String a : CUtils.list("help", "reload")) {
                 if (a.startsWith(args[0])) {
                     result.add(a);
                 }

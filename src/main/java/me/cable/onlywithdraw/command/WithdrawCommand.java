@@ -46,7 +46,7 @@ public class WithdrawCommand extends Command {
             messages.noPermission().run(sender);
             return;
         }
-        if (!(sender instanceof Player player)) {
+        if (!(sender instanceof Player)) {
             messages.onlyPlayers().run(sender);
             return;
         }
@@ -54,6 +54,8 @@ public class WithdrawCommand extends Command {
             help(sender, label);
             return;
         }
+
+        Player player = (Player) sender;
 
         /* Value */
 
@@ -248,7 +250,7 @@ public class WithdrawCommand extends Command {
         int length = args.length;
 
         switch (length) {
-            case 1 -> {
+            case 1: {
                 String arg = args[0];
 
                 if ("all".startsWith(arg)) {
@@ -268,8 +270,10 @@ public class WithdrawCommand extends Command {
                         result.add(arg + entry.getKey());
                     }
                 }
+
+                break;
             }
-            case 3 -> {
+            case 3: {
                 if (isAdmin(sender)) {
                     String arg = args[2];
 
@@ -285,6 +289,8 @@ public class WithdrawCommand extends Command {
                         }
                     }
                 }
+
+                break;
             }
         }
 

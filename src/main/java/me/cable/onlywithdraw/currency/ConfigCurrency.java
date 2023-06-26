@@ -6,6 +6,7 @@ import me.cable.onlycore.util.FormatUtils;
 import me.cable.onlycore.util.ItemUtils;
 import me.cable.onlywithdraw.OnlyWithdraw;
 import me.cable.onlywithdraw.handler.Settings;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -26,7 +27,7 @@ public abstract class ConfigCurrency extends Currency {
     }
 
     private @NotNull ConfigurationSection config() {
-        return settings.csOrCreate(getId());
+        return settings.csOrCreate("currencies." + getId());
     }
 
     @Override
@@ -51,12 +52,14 @@ public abstract class ConfigCurrency extends Currency {
 
     @Override
     public @Nullable BigDecimal getMin() {
-        return null;
+        String min = config().getString("min");
+        return (min == null) ? null : new BigDecimal(min);
     }
 
     @Override
     public @Nullable BigDecimal getMax() {
-        return null;
+        String max = config().getString("max");
+        return (max == null || max.equals("-1")) ? null : new BigDecimal(max);
     }
 
     @Override
@@ -80,13 +83,13 @@ public abstract class ConfigCurrency extends Currency {
     @Override
     public @NotNull ItemStack createItem(@NotNull BigDecimal value, @Nullable String owner) {
         Map<String, String> placeholders = new HashMap<>();
-        placeholders.put("value", format(value));
+        placeholders.put("%value%", format(value));
 
         if (owner != null) {
-            placeholders.put("owner", owner);
+            placeholders.put("%owner%", owner);
         }
 
-        ConfigurationSection itemCs = CUtils.getOrCreateCS(config(), "items." + (owner == null ? "owner" : "no-owner"));
+        ConfigurationSection itemCs = CUtils.getOrCreateCS(config(), "items." + (owner == null ? "no-owner" : "owner"));
         return ItemUtils.fromCS(itemCs, placeholders);
     }
 }

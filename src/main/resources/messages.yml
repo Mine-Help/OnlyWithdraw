@@ -9,6 +9,9 @@
 #
 # ---------------------------------------------------------------------------------------------------- #
 
+placeholders: # custom placeholders, example: %error%
+  error: "[!]"
+
 command:
   onlywithdraw:
     help: # %command%
@@ -44,7 +47,7 @@ error:
     - "[message] The target player could not be found!"
   no-permission:
     - "[message] You don't have permission to use this command!"
-  only-player:
+  only-players:
     - "[message] Only players may use this command!"
   under-min: # %min%
     - "[message] The provided amount is under the minimum!"

@@ -10,22 +10,40 @@ import me.cable.onlywithdraw.listener.inventory.InventoryClick;
 import me.cable.onlywithdraw.listener.inventory.PrepareItemCraft;
 import me.cable.onlywithdraw.listener.player.PlayerDeath;
 import me.cable.onlywithdraw.listener.player.PlayerInteract;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public final class OnlyWithdraw extends JavaPlugin {
 
+    private @Nullable Economy economy;
     private Settings settings;
     private Messages messages;
     private WithdrawItemHandler withdrawItemHandler;
 
     @Override
     public void onEnable() {
+        setupEconomy();
         initializeHandlers();
         registerListeners();
         registerCommands();
         registerCurrencies();
+    }
+
+    private void setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return;
+        }
+
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+
+        if (rsp != null) {
+            economy = rsp.getProvider();
+            getLogger().info("Vault economy detected; using for money currency");
+        }
     }
 
     private void initializeHandlers() {
@@ -53,6 +71,10 @@ public final class OnlyWithdraw extends JavaPlugin {
     private void registerCurrencies() {
         new ExperienceCurrency(this).register();
         new MoneyCurrency(this).register();
+    }
+
+    public @Nullable Economy getEconomy() {
+        return economy;
     }
 
     public @NotNull Settings getSettings() {

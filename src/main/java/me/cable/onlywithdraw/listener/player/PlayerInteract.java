@@ -22,11 +22,11 @@ public class PlayerInteract implements Listener {
     }
 
     @EventHandler
-    private void event(@NotNull PlayerInteractEvent playerInteractEvent) {
-        ItemStack item = playerInteractEvent.getItem();
+    private void event(@NotNull PlayerInteractEvent e) {
+        ItemStack item = e.getItem();
         if (item == null) return;
 
-        if (!playerInteractEvent.getAction().toString().contains("RIGHT")) {
+        if (!e.getAction().toString().contains("RIGHT")) {
             return;
         }
 
@@ -39,17 +39,18 @@ public class PlayerInteract implements Listener {
         BigDecimal value = withdrawItemHandler.getValue(item);
         if (value == null) return;
 
-        playerInteractEvent.setCancelled(true);
+        e.setCancelled(true);
 
-        Player player = playerInteractEvent.getPlayer();
-        int amount = item.getAmount();
-
+        Player player = e.getPlayer();
+        int amount;
         BigDecimal totalValue;
 
         if (player.isSneaking()) {
+            amount = item.getAmount();
             totalValue = value.multiply(new BigDecimal(amount));
             item.setAmount(0);
         } else {
+            amount = 1;
             totalValue = value;
             item.setAmount(item.getAmount() - 1);
         }
