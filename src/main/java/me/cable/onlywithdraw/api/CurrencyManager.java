@@ -4,7 +4,6 @@ import me.cable.onlycore.util.CUtils;
 import me.cable.onlywithdraw.OnlyWithdraw;
 import me.cable.onlywithdraw.command.WithdrawCommand;
 import me.cable.onlywithdraw.currency.Currency;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +14,7 @@ import java.util.Set;
 
 public final class CurrencyManager {
 
-    private static final OnlyWithdraw onlyWithdraw = JavaPlugin.getPlugin(OnlyWithdraw.class);
+    private static final OnlyWithdraw onlyWithdraw = OnlyWithdraw.getInstance();
 
     private static final Set<Currency> enabledCurrencies = new HashSet<>();
     private static final Set<Currency> disabledCurrencies = new HashSet<>();
@@ -31,10 +30,23 @@ public final class CurrencyManager {
         return null;
     }
 
+    private static @NotNull List<Currency> getAllCurrencies() {
+        List<Currency> list = new ArrayList<>(enabledCurrencies);
+        list.addAll(disabledCurrencies);
+        return list;
+    }
+
     public static void registerCurrency(@NotNull Currency currency) {
-        if (enabledCurrencies.contains(currency) || disabledCurrencies.contains(currency)) {
-            throw new IllegalArgumentException(Currency.class.getSimpleName() + " has already been registered");
+
+        /* Check If Registered */
+
+        for (Currency c : getAllCurrencies()) {
+            if (currency.getId().equals(c.getId())) {
+                throw new IllegalArgumentException(Currency.class.getSimpleName() + " has already been registered");
+            }
         }
+
+        /* Register */
 
         if (currency.isEnabled()) {
             enabledCurrencies.add(currency);
@@ -49,7 +61,7 @@ public final class CurrencyManager {
 
     public static void reloadCurrencies() {
 
-        /* Commands */
+        /* Unload Commands */
 
         for (WithdrawCommand withdrawCommand : withdrawCommands) {
             CUtils.unregisterCommand(withdrawCommand);
@@ -57,15 +69,14 @@ public final class CurrencyManager {
 
         withdrawCommands.clear();
 
-        /* Currencies */
+        /* Re-Register Currencies */
 
-        List<Currency> registeredCurrencies = new ArrayList<>(enabledCurrencies);
-        registeredCurrencies.addAll(disabledCurrencies);
+        List<Currency> allCurrencies = getAllCurrencies();
 
         enabledCurrencies.clear();
         disabledCurrencies.clear();
 
-        for (Currency currency : registeredCurrencies) {
+        for (Currency currency : allCurrencies) {
             registerCurrency(currency);
         }
     }

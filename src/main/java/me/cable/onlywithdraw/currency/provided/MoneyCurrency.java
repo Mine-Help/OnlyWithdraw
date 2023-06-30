@@ -14,9 +14,9 @@ public class MoneyCurrency extends ConfigCurrency {
 
     private final @Nullable Economy economy;
 
-    public MoneyCurrency(@NotNull OnlyWithdraw onlyWithdraw) {
-        super("money", onlyWithdraw);
-        economy = onlyWithdraw.getEconomy();
+    public MoneyCurrency() {
+        super("money");
+        economy = OnlyWithdraw.getInstance().getEconomy();
     }
 
     @Override

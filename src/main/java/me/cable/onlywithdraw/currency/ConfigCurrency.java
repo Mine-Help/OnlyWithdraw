@@ -21,9 +21,9 @@ public abstract class ConfigCurrency extends Currency {
 
     private final Settings settings;
 
-    public ConfigCurrency(@NotNull String id, @NotNull OnlyWithdraw onlyWithdraw) {
+    public ConfigCurrency(@NotNull String id) {
         super(id);
-        settings = onlyWithdraw.getSettings();
+        settings = OnlyWithdraw.getInstance().getSettings();
     }
 
     private @NotNull ConfigurationSection config() {

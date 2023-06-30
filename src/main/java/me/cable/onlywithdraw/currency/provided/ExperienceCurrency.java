@@ -2,7 +2,6 @@ package me.cable.onlywithdraw.currency.provided;
 
 import me.cable.onlycore.util.ExpUtils;
 import me.cable.onlycore.util.FormatUtils;
-import me.cable.onlywithdraw.OnlyWithdraw;
 import me.cable.onlywithdraw.currency.ConfigCurrency;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -11,8 +10,8 @@ import java.math.BigDecimal;
 
 public class ExperienceCurrency extends ConfigCurrency {
 
-    public ExperienceCurrency(@NotNull OnlyWithdraw onlyWithdraw) {
-        super("experience", onlyWithdraw);
+    public ExperienceCurrency() {
+        super("experience");
     }
 
     @Override

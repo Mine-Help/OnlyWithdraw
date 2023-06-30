@@ -2,7 +2,6 @@ package me.cable.onlywithdraw.util;
 
 import me.cable.onlycore.util.FormatUtils;
 import me.cable.onlywithdraw.OnlyWithdraw;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
@@ -14,15 +13,13 @@ import java.util.stream.Collectors;
 
 public final class NumberUtils {
 
-    private static @NotNull OnlyWithdraw plugin() {
-        return JavaPlugin.getPlugin(OnlyWithdraw.class);
-    }
+    private static final OnlyWithdraw onlyWithdraw = OnlyWithdraw.getInstance();
 
     /*
         Returns the number symbols in ascending order.
      */
     private static @NotNull List<Entry<String, BigDecimal>> numberSymbols() {
-        return plugin().getSettings().numberSymbols().entrySet().stream()
+        return onlyWithdraw.getSettings().numberSymbols().entrySet().stream()
                 .sorted(Entry.comparingByValue()).collect(Collectors.toList());
     }
 

@@ -24,6 +24,10 @@ public final class OnlyWithdraw extends JavaPlugin {
     private Messages messages;
     private WithdrawItemHandler withdrawItemHandler;
 
+    public static @NotNull OnlyWithdraw getInstance() {
+        return JavaPlugin.getPlugin(OnlyWithdraw.class);
+    }
+
     @Override
     public void onEnable() {
         setupEconomy();
@@ -69,8 +73,8 @@ public final class OnlyWithdraw extends JavaPlugin {
     }
 
     private void registerCurrencies() {
-        new ExperienceCurrency(this).register();
-        new MoneyCurrency(this).register();
+        new ExperienceCurrency().register();
+        new MoneyCurrency().register();
     }
 
     public @Nullable Economy getEconomy() {
