@@ -6,7 +6,9 @@ import me.cable.onlycore.util.FormatUtils;
 import me.cable.onlywithdraw.OnlyWithdraw;
 import me.cable.onlywithdraw.currency.Currency;
 import me.cable.onlywithdraw.handler.Messages;
+import me.cable.onlywithdraw.handler.Settings;
 import me.cable.onlywithdraw.handler.WithdrawItemHandler;
+import me.cable.onlywithdraw.util.NumberUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -25,6 +27,7 @@ public class WithdrawCommand extends Command {
 
     public static final String COMMAND_PATH = "withdraw";
 
+    private final Settings settings;
     private final Messages messages;
     private final WithdrawItemHandler withdrawItemHandler;
 
@@ -32,6 +35,8 @@ public class WithdrawCommand extends Command {
 
     public WithdrawCommand(@NotNull OnlyWithdraw onlyWithdraw, @NotNull Currency currency) {
         super(currency.getCommandLabel());
+
+        settings = onlyWithdraw.getSettings();
         messages = onlyWithdraw.getMessages();
         withdrawItemHandler = onlyWithdraw.getWithdrawItemHandler();
 
@@ -67,7 +72,7 @@ public class WithdrawCommand extends Command {
             all = true;
         } else {
             try {
-                unitValue = FormatUtils.toNumber(args[0]); // TODO: move to withdraw plugin
+                unitValue = NumberUtils.expand(args[0]);
             } catch (NumberFormatException ex) {
                 help(sender, label);
                 return;
@@ -93,7 +98,7 @@ public class WithdrawCommand extends Command {
 
         if (all) {
             totalValue = unitValue;
-            unitValue = totalValue.divide(new BigDecimal(amount), new MathContext(3, RoundingMode.DOWN));
+            unitValue = totalValue.divide(new BigDecimal(amount), new MathContext(10, RoundingMode.DOWN));
         } else {
             totalValue = unitValue.multiply(new BigDecimal(amount));
         }
@@ -146,7 +151,7 @@ public class WithdrawCommand extends Command {
         BigDecimal value;
 
         try {
-            value = FormatUtils.toNumber(args[0]);
+            value = NumberUtils.expand(args[0]);
         } catch (NumberFormatException ex) {
             help(sender, label);
             return;
@@ -266,7 +271,7 @@ public class WithdrawCommand extends Command {
                 }
 
                 if (valid) {
-                    for (Entry<String, BigDecimal> entry : FormatUtils.numberSymbols()) {
+                    for (Entry<String, BigDecimal> entry : settings.numberSymbols().entrySet()) {
                         result.add(arg + entry.getKey());
                     }
                 }

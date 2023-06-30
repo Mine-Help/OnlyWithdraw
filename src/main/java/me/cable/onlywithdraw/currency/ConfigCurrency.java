@@ -6,7 +6,7 @@ import me.cable.onlycore.util.FormatUtils;
 import me.cable.onlycore.util.ItemUtils;
 import me.cable.onlywithdraw.OnlyWithdraw;
 import me.cable.onlywithdraw.handler.Settings;
-import org.bukkit.Bukkit;
+import me.cable.onlywithdraw.util.NumberUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -83,7 +83,8 @@ public abstract class ConfigCurrency extends Currency {
     @Override
     public @NotNull ItemStack createItem(@NotNull BigDecimal value, @Nullable String owner) {
         Map<String, String> placeholders = new HashMap<>();
-        placeholders.put("%value%", format(value));
+        placeholders.put("%value_long%", format(value));
+        placeholders.put("%value_short%", NumberUtils.abbreviate(value));
 
         if (owner != null) {
             placeholders.put("%owner%", owner);

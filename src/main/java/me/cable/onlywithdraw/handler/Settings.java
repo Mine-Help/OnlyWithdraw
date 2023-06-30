@@ -2,10 +2,13 @@ package me.cable.onlywithdraw.handler;
 
 import me.cable.onlycore.handler.ConfigHandler;
 import me.cable.onlywithdraw.OnlyWithdraw;
+import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Settings extends ConfigHandler<OnlyWithdraw> {
 
@@ -35,5 +38,20 @@ public class Settings extends ConfigHandler<OnlyWithdraw> {
 
     public @Nullable BigDecimal experienceOnDeathMin() {
         return bigDecimal("experience-on-death.min");
+    }
+
+    public @NotNull Map<String, BigDecimal> numberSymbols() {
+        Map<String, BigDecimal> map = new HashMap<>();
+        String path = "number-symbols";
+        ConfigurationSection cs = cs(path);
+
+        if (cs != null) {
+            for (String key : cs.getKeys(false)) {
+                BigDecimal val = bigDecimal(path + "." + key, BigDecimal.ZERO);
+                map.put(key, val);
+            }
+        }
+
+        return map;
     }
 }

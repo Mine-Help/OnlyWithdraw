@@ -46,20 +46,20 @@ currency-example:
   # Maximum amount that can be withdrawn to an item (-1 for unlimited).
   max: -1
 
-  items: # %value%
+  items: # %value_long% %value_short%
     # Used when the withdraw item was created by a player through withdrawing.
     owner: # %owner%
       material: PAPER
       name: "&a&lPaper-Note &7(Right-Click)"
       lore:
-        - "&dValue: &f%value%"
+        - "&dValue: &f%value_short%"
         - "&dSigner: &f%owner%"
     # Used when the withdraw item was created by the server.
     no-owner:
       material: PAPER
-      name: "&a&lPaper-Note &7(Throw)"
+      name: "&a&lPaper-Note &7(Right-Click)"
       lore:
-        - "&dValue: &f%value%"
+        - "&dValue: &f%value_short%"
         - "&dSigner: &fServer"
 
   events:
@@ -89,13 +89,13 @@ currencies:
         material: EXPERIENCE_BOTTLE
         name: "&a&lExperience Bottle &7(Throw)"
         lore:
-          - "&dValue: &f%value% XP"
+          - "&dValue: &f%value_long% XP"
           - "&dEnchanter: &f%owner%"
       no-owner:
         material: EXPERIENCE_BOTTLE
         name: "&a&lExperience Bottle &7(Throw)"
         lore:
-          - "&dValue: &f%value% XP"
+          - "&dValue: &f%value_long% XP"
           - "&dEnchanter: &fServer"
 
     events:
@@ -119,13 +119,13 @@ currencies:
         material: PAPER
         name: "&a&lCash-Note &7(Right-Click)"
         lore:
-          - "&dValue: &f%value%"
+          - "&dValue: &f%value_short%"
           - "&dSigner: &f%owner%"
       no-owner:
         material: PAPER
-        name: "&a&lCash-Note &7(Throw)"
+        name: "&a&lCash-Note &7(Right-Click)"
         lore:
-          - "&dValue: &f%value%"
+          - "&dValue: &f%value_short%"
           - "&dSigner: &fServer"
 
     events:
@@ -133,3 +133,14 @@ currencies:
         - "[message] +%total% money"
       withdraw:
         - "[message] -%total% money"
+
+# ---------------------------------------------( Symbols )-------------------------------------------- #
+
+# Symbols for formatting large numbers. Order does not matter.
+number-symbols:
+  k: 1000
+  m: 1000000
+  b: 1000000000
+  t: 1000000000000
+  q: 1000000000000000
+  Q: 1000000000000000000

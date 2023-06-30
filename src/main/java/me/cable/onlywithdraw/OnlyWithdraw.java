@@ -34,7 +34,7 @@ public final class OnlyWithdraw extends JavaPlugin {
     }
 
     private void setupEconomy() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+        if (!getServer().getPluginManager().isPluginEnabled("Vault")) {
             return;
         }
 
@@ -42,7 +42,7 @@ public final class OnlyWithdraw extends JavaPlugin {
 
         if (rsp != null) {
             economy = rsp.getProvider();
-            getLogger().info("Vault economy detected; using for money currency");
+            getLogger().info("Using Vault economy for money currency");
         }
     }
 
