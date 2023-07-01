@@ -29,7 +29,7 @@ command:
     help: # %command%
       - "[message] /%command% <value | all> <amount>"
     help-admin: # %command%
-      - "[message] /%command% <value | all> <amount>"
+      - "[message] /%command% <value | all> [amount]"
       - "[message] /%command% <value> <amount> <player | all> [owner]"
     # Runs when a player receives withdrawn items from an admin.
     get: # %amount% %player% %total% %value%
