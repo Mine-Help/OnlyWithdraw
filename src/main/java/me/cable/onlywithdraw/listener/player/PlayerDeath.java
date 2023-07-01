@@ -2,7 +2,7 @@ package me.cable.onlywithdraw.listener.player;
 
 import me.cable.onlycore.util.ExpUtils;
 import me.cable.onlywithdraw.OnlyWithdraw;
-import me.cable.onlywithdraw.api.CurrencyManager;
+import me.cable.onlywithdraw.handler.CurrencyManager;
 import me.cable.onlywithdraw.currency.Currency;
 import me.cable.onlywithdraw.handler.Settings;
 import me.cable.onlywithdraw.handler.WithdrawItemHandler;

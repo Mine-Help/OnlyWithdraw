@@ -1,6 +1,6 @@
 package me.cable.onlywithdraw.currency;
 
-import me.cable.onlywithdraw.api.CurrencyManager;
+import me.cable.onlywithdraw.handler.CurrencyManager;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;

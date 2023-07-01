@@ -3,7 +3,7 @@ package me.cable.onlywithdraw.command;
 import me.cable.onlycore.command.CustomCommand;
 import me.cable.onlycore.util.CUtils;
 import me.cable.onlywithdraw.OnlyWithdraw;
-import me.cable.onlywithdraw.api.CurrencyManager;
+import me.cable.onlywithdraw.handler.CurrencyManager;
 import me.cable.onlywithdraw.handler.Messages;
 import me.cable.onlywithdraw.handler.Settings;
 import org.bukkit.command.Command;

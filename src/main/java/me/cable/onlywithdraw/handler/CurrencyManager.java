@@ -1,4 +1,4 @@
-package me.cable.onlywithdraw.api;
+package me.cable.onlywithdraw.handler;
 
 import me.cable.onlycore.util.CUtils;
 import me.cable.onlywithdraw.OnlyWithdraw;

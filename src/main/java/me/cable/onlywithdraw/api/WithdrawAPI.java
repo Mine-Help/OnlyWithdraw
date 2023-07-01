@@ -2,6 +2,7 @@ package me.cable.onlywithdraw.api;
 
 import me.cable.onlywithdraw.OnlyWithdraw;
 import me.cable.onlywithdraw.currency.Currency;
+import me.cable.onlywithdraw.handler.CurrencyManager;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
